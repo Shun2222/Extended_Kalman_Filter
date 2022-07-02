@@ -1,6 +1,5 @@
 #include "extended_kalman_filter.hpp"
-
-
+ 
 EKF::EKF()
     : m_sigmaWr(0.08)
     , m_sigmaWl(0.08)
