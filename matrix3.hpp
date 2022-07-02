@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <cmath>
 #include <ostream>
 #include <vector>
@@ -27,23 +28,24 @@ struct Matrix3
 
     double norm()
     {
-        double a = x.x * y.y * z.z + x.y * y.z * z.x + x.y * y.x * z.y;
+        double a = x.x * y.y * z.z + x.y * y.z * z.x + x.z * y.x * z.y;
         double b = x.z * y.y * z.x + x.x * y.z * z.y + x.y * y.x * z.z;
         return a - b;
     }
 
     Matrix3 inv()
     {
-        double d = this.norm();
-        if(d == 0)
+        double n = this->norm();
+        if(n == 0)
         {
             std::cout << "error: there is no inverse." << std::endl;
-            return null;
+            n = 0.1;
         }
-         Matrix mat =  {},\
-                       {},\
-                       {}};
-         return mat/this.norm();
+         Matrix3 mat = {{y.y * z.z - y.z * z.y, -x.y * z.z + x.y * z.y, x.y * y.z - x.z * y.y},\
+                       {-y.x * z.z + y.z * z.x, x.x * z.z - x.z * z.x, -x.x * y.z + x.z * y.x},\
+                       {y.x * z.y - y.y * z.x, -x.x * z.y - x.y * z.x, x.x * y.y - x.y * y.x}};
+
+         return mat/n;
     }
 
     constexpr Matrix3 operator+() const
@@ -117,6 +119,11 @@ struct Matrix3
         y /= s;
         z /= s;
         return *this;
+    }
+
+    Vec3 operator*(Vec3 &other)
+    {
+        return {x.dot(other), y.dot(other), z.dot(other)};
     }
     friend std::ostream & operator<<(std::ostream & os, const Matrix3 & mat)
     {

@@ -1,6 +1,7 @@
 #pragma once
 #include"matrix3.hpp"
-#include "Vex3.hpp"
+#include "vec2.hpp"
+#include "vec3.hpp"
 
 class KalmanFilter
 {
@@ -19,7 +20,7 @@ class KalmanFilter
 
         const Matrix3 m_Q;
         const Matrix3 m_R;
-        Vec3 xhat;
+        Vec3 m_xhat;
         Matrix3 m_P;
         Matrix3 m_Phat;
         Matrix3 m_K;
@@ -27,9 +28,11 @@ class KalmanFilter
     public:
         KalmanFilter();
         ~KalmanFilter();
+        Vec2 getXY();
+        double getTheta();
         Vec3 f();
         Vec3 h();
-        Vec3 filtering();
-}
+        Vec3 filter();
+};
 
 
