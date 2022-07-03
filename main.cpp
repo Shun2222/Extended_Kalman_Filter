@@ -6,7 +6,7 @@ int main(void)
     for(int i=0; i<10; i++)
     {
         std::cout << kf.getXY() << std::endl;
-        std::cout << kf.getTheta << std::endl;
+        std::cout << kf.getTheta() << std::endl;
         kf.filter();
     }
     return 0;
